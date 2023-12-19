@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author cralves
+ * @author dudup
  */
 public class ConexaoBanco {
 
@@ -26,5 +26,4 @@ public class ConexaoBanco {
         }
         return c;
     }
-    
 }

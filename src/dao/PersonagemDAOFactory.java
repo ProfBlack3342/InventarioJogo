@@ -3,11 +3,11 @@ package dao;
 
 /**
  *
- * @author cralves
+ * @author dudup
  */
 public class PersonagemDAOFactory {
     
-    private static final PersonagemDAO personagemDAO = new PersonagemDAO();
+    private static PersonagemDAO personagemDAO = new PersonagemDAO();
 
     public static PersonagemDAO getPersonagemDAO(){
         return personagemDAO;

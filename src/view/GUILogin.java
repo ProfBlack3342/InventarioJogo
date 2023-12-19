@@ -1,14 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package view;
 
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-import dao.LoginDAO;
-import java.awt.event.KeyEvent;
+import jbcrypt.BCrypt;
+
+import dao.LoginDAOFactory;
 import modelo.Usuario;
 
 /**
@@ -42,9 +41,7 @@ public class GUILogin extends javax.swing.JDialog {
             usuario.setLogin(jtfUsuario.getText() );
             usuario.setSenha(new String(jpfSenha.getPassword()));
             
-            
-            LoginDAO login = new LoginDAO();
-            boolean senhaCorreta = login.autenticarLogin(usuario);
+            boolean senhaCorreta = LoginDAOFactory.getLoginDAO().autenticarLogin(usuario);
             
             if(senhaCorreta)
             {

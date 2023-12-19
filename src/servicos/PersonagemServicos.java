@@ -1,15 +1,16 @@
 
 package servicos;
 
-import dao.PersonagemDAOFactory;
-import dao.PersonagemDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import dao.PersonagemDAOFactory;
+import dao.PersonagemDAO;
 import modelo.Personagem;
 
 /**
  *
- * @author cralves
+ * @author dudup
  */
 public class PersonagemServicos {
     

@@ -3,7 +3,7 @@ package servicos;
 
 /**
  *
- * @author cralves
+ * @author dudup
  */
 public class ServicosFactory {
     
