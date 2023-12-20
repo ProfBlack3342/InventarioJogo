@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import jbcrypt.BCrypt;
-
 import modelo.Usuario;
 import persistencia.ConexaoBanco;
 
@@ -19,7 +17,6 @@ public class LoginDAO {
     
     public boolean autenticarLogin(Usuario usuario) throws SQLException {
         
-        boolean retorno = false;
         String sql = "SELECT * FROM usuario WHERE login=? AND senha=?";
         
         try(Connection con = new ConexaoBanco().getConexao(); PreparedStatement pstm = con.prepareStatement(sql))
@@ -29,14 +26,26 @@ public class LoginDAO {
             
             try(ResultSet rs = pstm.executeQuery())
             {
-                retorno = rs.next();
+                if(rs.next())
+                {
+                    usuario.setIdUsuario(rs.getInt(""));
+                    usuario.setIdImagemUsuario(rs.getInt(""));
+                    usuario.setIdTipoUsuario(rs.getInt(""));
+                    usuario.setLogin(rs.getString(""));
+                    usuario.setSenha(null);
+                    usuario.setApelido(rs.getString(""));
+                    
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         catch (SQLException se)
         {
             throw new SQLException("\nErro durante a autenticação em LoginDAO: " + se.getMessage());
         }
-        
-        return retorno;
     }
 }

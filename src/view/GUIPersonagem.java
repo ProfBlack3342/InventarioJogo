@@ -7,36 +7,26 @@ import modelo.Usuario;
  *
  * @author dudup
  */
-public class GUIPrincipal extends javax.swing.JFrame {
+public class GUIPersonagem extends javax.swing.JFrame {
 
     private final Usuario usuarioLogado;
-    private GUIInventario guiInventario;
-    GUIArmazem guiArmazem;
     
     /**
      * Creates new form GUIPrincipal
      * @param usuarioLogado
      */
-    private GUIPrincipal() {
+    private GUIPersonagem() {
         initComponents();
         
         this.usuarioLogado = null;
-        this.guiInventario = new GUIInventario();
-        this.guiArmazem = new GUIArmazem();
-        
-        jTabbedPane.add("Inventário", guiInventario);
-        jTabbedPane.add("Armazém", guiArmazem);
+
     }
     
-    public GUIPrincipal(Usuario usuarioLogado) {
+    public GUIPersonagem(Usuario usuarioLogado) {
         initComponents();
         
         this.usuarioLogado = usuarioLogado;
-        this.guiInventario = new GUIInventario();
-        this.guiArmazem = new GUIArmazem();
-        
-        jTabbedPane.add("Inventário", guiInventario);
-        jTabbedPane.add("Armazém", guiArmazem);
+
     }
 
     /**
@@ -48,25 +38,17 @@ public class GUIPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane = new javax.swing.JTabbedPane();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 497, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 446, Short.MAX_VALUE)
         );
 
         pack();
@@ -89,25 +71,25 @@ public class GUIPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPersonagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPersonagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPersonagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPersonagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIPrincipal().setVisible(true);
+                new GUIPersonagem().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane jTabbedPane;
     // End of variables declaration//GEN-END:variables
 }

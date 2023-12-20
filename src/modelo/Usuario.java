@@ -7,8 +7,9 @@ package modelo;
  */
 public class Usuario {
     
-    private int idUsuario, idImagemUsuario, idTipoUsuario, quantPersonagens;
+    private int idUsuario, idImagemUsuario, idTipoUsuario;
     private String login, senha, apelido;
+    
 
     public int getIdUsuario() {
         return idUsuario;
@@ -29,13 +30,6 @@ public class Usuario {
     }
     public void setIdTipoUsuario(int idTipoUsuario) {
         this.idTipoUsuario = idTipoUsuario;
-    }
-
-    public int getQuantPersonagens() {
-        return quantPersonagens;
-    }
-    public void setQuantPersonagens(int quantPersonagens) {
-        this.quantPersonagens = quantPersonagens;
     }
 
     public String getLogin() {
