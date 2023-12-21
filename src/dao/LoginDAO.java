@@ -17,7 +17,7 @@ public class LoginDAO {
     
     public boolean autenticarLogin(Usuario usuario) throws SQLException {
         
-        String sql = "SELECT * FROM usuario WHERE login=? AND senha=?";
+        String sql = "SELECT * FROM usuario WHERE login = ? AND senha = ?";
         
         try(Connection con = new ConexaoBanco().getConexao(); PreparedStatement pstm = con.prepareStatement(sql))
         {
@@ -28,12 +28,10 @@ public class LoginDAO {
             {
                 if(rs.next())
                 {
-                    usuario.setIdUsuario(rs.getInt(""));
-                    usuario.setIdImagemUsuario(rs.getInt(""));
-                    usuario.setIdTipoUsuario(rs.getInt(""));
-                    usuario.setLogin(rs.getString(""));
+                    usuario.setIdUsuario(rs.getInt("idUsuario"));
+                    usuario.setIdImagemUsuario(rs.getInt("idImagemUsuario"));
+                    usuario.setIdTipoUsuario(rs.getInt("idTipoUsuario"));
                     usuario.setSenha(null);
-                    usuario.setApelido(rs.getString(""));
                     
                     return true;
                 }

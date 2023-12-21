@@ -17,7 +17,7 @@ public class ConexaoBanco {
         Connection c = null;
         try
         {
-            String url = "jdbc:mysql://localhost:3306/projetointegrador?useTimezone=true&serverTimezone=UTC&user=root&password=";
+            String url = "jdbc:mysql://localhost:3306/projetointegrador?zeroDateTimeBehavior=CONVERT_TO_NULL&user=root&password=";
             c = DriverManager.getConnection(url);
         }
         catch (SQLException se)

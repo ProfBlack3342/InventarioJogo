@@ -35,25 +35,34 @@ public class PersonagemDAO {
         }
     }
     
-    public ArrayList<Personagem> buscarPersonagem() throws SQLException {
+    public ArrayList<Personagem> buscarPersonagem(int idUsuario) throws SQLException {
         
         ArrayList<Personagem> pro = new ArrayList<>();
-        String sql = "SELECT * FROM personagem";
+        String sql = "SELECT * FROM personagem WHERE idUsuario = ?";
         
-        try(Connection con = new ConexaoBanco().getConexao(); PreparedStatement pstm = con.prepareStatement(sql); ResultSet rs = pstm.executeQuery())
+        try(Connection con = new ConexaoBanco().getConexao(); PreparedStatement pstm = con.prepareStatement(sql))
         {
-            while( rs.next())
+            pstm.setInt(1, idUsuario);
+            
+            try(ResultSet rs = pstm.executeQuery())
             {
-                Personagem pVO = new Personagem();
-                pVO.setIdPersonagem(rs.getInt("idPersonagem"));
-                pVO.setIdUsuario(rs.getInt("idUsuario"));
-                pVO.setIdImagem(rs.getInt("idImagemPersonagem"));
-                pVO.setIdTipo(rs.getInt("idTipoPersonagem"));
-                pVO.setNome(rs.getString("nome"));
+                while( rs.next())
+                {
+                    Personagem pVO = new Personagem();
+                    pVO.setIdPersonagem(rs.getInt("idPersonagem"));
+                    pVO.setIdUsuario(rs.getInt("idUsuario"));
+                    pVO.setIdImagem(rs.getInt("idImagemPersonagem"));
+                    pVO.setIdTipo(rs.getInt("idTipoPersonagem"));
+                    pVO.setNome(rs.getString("nome"));
 
-                pro.add(pVO);
+                    pro.add(pVO);
+                }
             }
-        return pro;
+            
+            if(pro.isEmpty())
+                return null;
+            else
+                return pro;
         }
         catch(SQLException se)
         {

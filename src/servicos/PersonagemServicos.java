@@ -19,9 +19,9 @@ public class PersonagemServicos {
         pDAO.cadastrarPersonagem(personagem);
     }
     
-    public ArrayList<Personagem> buscarPersonagem() throws SQLException{
+    public ArrayList<Personagem> buscarPersonagem(int idUsuario) throws SQLException{
         PersonagemDAO pDAO = PersonagemDAOFactory.getPersonagemDAO();
-        return pDAO.buscarPersonagem();
+        return pDAO.buscarPersonagem(idUsuario);
     }
     
     public ArrayList<Personagem> filtrarPersonagem(String query) throws SQLException{

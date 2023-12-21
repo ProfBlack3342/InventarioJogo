@@ -1,7 +1,15 @@
 
 package view;
 
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
+
+import modelo.Personagem;
 import modelo.Usuario;
+import servicos.PersonagemServicos;
 
 /**
  *
@@ -9,7 +17,9 @@ import modelo.Usuario;
  */
 public class GUIPersonagem extends javax.swing.JFrame {
 
-    private final Usuario usuarioLogado;
+    private Usuario usuarioLogado;
+    private final ArrayList<Personagem> personagens;
+    private boolean temPerso;
     
     /**
      * Creates new form GUIPrincipal
@@ -18,17 +28,71 @@ public class GUIPersonagem extends javax.swing.JFrame {
     private GUIPersonagem() {
         initComponents();
         
-        this.usuarioLogado = null;
-
+        this.usuarioLogado = new Usuario();
+        this.usuarioLogado.setLogin("Teste");
+        personagens = new ArrayList();
     }
     
     public GUIPersonagem(Usuario usuarioLogado) {
         initComponents();
         
         this.usuarioLogado = usuarioLogado;
-
+        jlblNomeUsuario.setText("Seja bem vindo " + this.usuarioLogado.getLogin());
+        jlblImagemUsuario.setIcon();
+        personagens = new ArrayList();
+        pesquisarPersonagens();
+    }
+    
+    private void pesquisarPersonagens() {
+        try
+        {
+            personagens.addAll(new PersonagemServicos().buscarPersonagem(usuarioLogado.getIdUsuario()));
+            temPerso = true;
+        }
+        catch(SQLException se)
+        {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar personagens: " + se.getMessage());
+        }
+        catch(NullPointerException ne)
+        {
+            temPerso = false;
+            
+            switch(JOptionPane.showOptionDialog(null, "Você ainda não possui nenhum personagem. Deseja criar um?", null, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null))
+            {
+                case JOptionPane.YES_OPTION:
+                {
+                    criarPersonagem();
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void criarPersonagem() {
+        
+    }
+    
+    private void escolherPersonagem() {
+        
+    }
+    
+    private void excluirPersonagem() {
+        
     }
 
+    private void sair() {
+        usuarioLogado = null;
+        GUILogin login = new GUILogin(new javax.swing.JFrame(), true);
+        this.setVisible(false);
+        login.setVisible(true);
+
+        this.dispose();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,21 +102,194 @@ public class GUIPersonagem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jpnlInfoUsuario = new javax.swing.JPanel();
+        jlblNomeUsuario = new javax.swing.JLabel();
+        jpnlBordaImagemUsuario = new javax.swing.JPanel();
+        jlblImagemUsuario = new javax.swing.JLabel();
+        jbtnEscolherP = new javax.swing.JButton();
+        jbtnCriarP = new javax.swing.JButton();
+        jbtnExcluirP = new javax.swing.JButton();
+        jbtnSair = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 153, 153));
+
+        jpnlInfoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jlblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlblNomeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblNomeUsuario.setText("Seja bem vindo [Usuário]");
+
+        jpnlBordaImagemUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jlblImagemUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblImagemUsuario.setText("[Imagem]");
+
+        javax.swing.GroupLayout jpnlBordaImagemUsuarioLayout = new javax.swing.GroupLayout(jpnlBordaImagemUsuario);
+        jpnlBordaImagemUsuario.setLayout(jpnlBordaImagemUsuarioLayout);
+        jpnlBordaImagemUsuarioLayout.setHorizontalGroup(
+            jpnlBordaImagemUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlblImagemUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+        );
+        jpnlBordaImagemUsuarioLayout.setVerticalGroup(
+            jpnlBordaImagemUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlblImagemUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+        );
+
+        jbtnEscolherP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnEscolherP.setText("Escolher um Personagem Existente");
+        jbtnEscolherP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEscolherPActionPerformed(evt);
+            }
+        });
+        jbtnEscolherP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnEscolherPKeyPressed(evt);
+            }
+        });
+
+        jbtnCriarP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnCriarP.setText("Criar um Personagem Novo");
+        jbtnCriarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCriarPActionPerformed(evt);
+            }
+        });
+        jbtnCriarP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnCriarPKeyPressed(evt);
+            }
+        });
+
+        jbtnExcluirP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnExcluirP.setText("Excluir um Personagem Existente");
+        jbtnExcluirP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExcluirPActionPerformed(evt);
+            }
+        });
+        jbtnExcluirP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnExcluirPKeyPressed(evt);
+            }
+        });
+
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnSair.setText("Sair");
+        jbtnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSairActionPerformed(evt);
+            }
+        });
+        jbtnSair.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnSairKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpnlInfoUsuarioLayout = new javax.swing.GroupLayout(jpnlInfoUsuario);
+        jpnlInfoUsuario.setLayout(jpnlInfoUsuarioLayout);
+        jpnlInfoUsuarioLayout.setHorizontalGroup(
+            jpnlInfoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlInfoUsuarioLayout.createSequentialGroup()
+                .addGroup(jpnlInfoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlInfoUsuarioLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jpnlBordaImagemUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnlInfoUsuarioLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jpnlInfoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnCriarP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnEscolherP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnExcluirP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jpnlInfoUsuarioLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jbtnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jpnlInfoUsuarioLayout.setVerticalGroup(
+            jpnlInfoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlInfoUsuarioLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jpnlBordaImagemUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jlblNomeUsuario)
+                .addGap(40, 40, 40)
+                .addComponent(jbtnCriarP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtnEscolherP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtnExcluirP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jbtnSair)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnlInfoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnlInfoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnCriarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCriarPActionPerformed
+        criarPersonagem();
+    }//GEN-LAST:event_jbtnCriarPActionPerformed
+
+    private void jbtnCriarPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnCriarPKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            criarPersonagem();
+    }//GEN-LAST:event_jbtnCriarPKeyPressed
+
+    private void jbtnEscolherPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEscolherPActionPerformed
+        if(temPerso)
+            escolherPersonagem();
+        else
+            JOptionPane.showMessageDialog(null, "Você não possui personagens ainda, crie um primeiro");
+    }//GEN-LAST:event_jbtnEscolherPActionPerformed
+
+    private void jbtnEscolherPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnEscolherPKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            if(temPerso)
+                escolherPersonagem();
+            else
+                JOptionPane.showMessageDialog(null, "Você não possui personagens ainda, crie um primeiro");
+        }
+    }//GEN-LAST:event_jbtnEscolherPKeyPressed
+
+    private void jbtnExcluirPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExcluirPActionPerformed
+        excluirPersonagem();
+    }//GEN-LAST:event_jbtnExcluirPActionPerformed
+
+    private void jbtnExcluirPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnExcluirPKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            excluirPersonagem();
+    }//GEN-LAST:event_jbtnExcluirPKeyPressed
+
+    private void jbtnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSairActionPerformed
+        sair();
+    }//GEN-LAST:event_jbtnSairActionPerformed
+
+    private void jbtnSairKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnSairKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            sair();
+    }//GEN-LAST:event_jbtnSairKeyPressed
 
     /**
      * @param args the command line arguments
@@ -81,6 +318,12 @@ public class GUIPersonagem extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -91,5 +334,13 @@ public class GUIPersonagem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbtnCriarP;
+    private javax.swing.JButton jbtnEscolherP;
+    private javax.swing.JButton jbtnExcluirP;
+    private javax.swing.JButton jbtnSair;
+    private javax.swing.JLabel jlblImagemUsuario;
+    private javax.swing.JLabel jlblNomeUsuario;
+    private javax.swing.JPanel jpnlBordaImagemUsuario;
+    private javax.swing.JPanel jpnlInfoUsuario;
     // End of variables declaration//GEN-END:variables
 }
