@@ -1,0 +1,175 @@
+DROP SCHEMA IF EXISTS ProjetoIntegrador;
+CREATE SCHEMA IF NOT EXISTS ProjetoIntegrador;
+USE ProjetoIntegrador;
+-- ----------------------------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS ImagemItem (
+    idImagemItem INT NOT NULL,
+    caminhoImagem VARCHAR(260) NOT NULL
+);
+-- PK
+ALTER TABLE ImagemItem ADD CONSTRAINT PK_IMAGEMITEM PRIMARY KEY(idImagemItem);
+ALTER TABLE ImagemItem CHANGE COLUMN idImagemItem idImagemItem INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS TipoItem (
+    idTipoItem INT NOT NULL
+);
+-- PK
+ALTER TABLE TipoItem ADD CONSTRAINT PK_TIPOITEM PRIMARY KEY(idTipoItem);
+ALTER TABLE TipoItem CHANGE COLUMN idTipoItem idTipoItem INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Item (
+    idItem INT NOT NULL,
+    idImagemItem INT NOT NULL,
+    idTipoItem INT NOT NULL
+);
+-- PK
+ALTER TABLE Item ADD CONSTRAINT PK_ITEM PRIMARY KEY(idItem);
+ALTER TABLE Item CHANGE COLUMN idItem idItem INT NOT NULL AUTO_INCREMENT;
+-- FK
+ALTER TABLE Item ADD CONSTRAINT FK_ITEM_IMAGEMITEM FOREIGN KEY(idImagemItem) REFERENCES ImagemItem(idImagemItem);
+ALTER TABLE Item ADD CONSTRAINT FK_ITEM_TIPOITEM FOREIGN KEY(idTipoItem) REFERENCES TipoItem(idTipoItem);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Inventario (
+    idInventario INT NOT NULL
+);
+-- PK
+ALTER TABLE Inventario ADD CONSTRAINT PK_INVENTARIO PRIMARY KEY(idInventario);
+ALTER TABLE Inventario CHANGE COLUMN idInventario idInventario INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Inventario_Item (
+    idInventario INT NOT NULL,
+    idItem INT NOT NULL
+);
+-- PK
+ALTER TABLE Inventario_Item ADD CONSTRAINT PK_INVENTARIO_ITEM PRIMARY KEY(idInventario, idItem);
+-- FK
+ALTER TABLE Inventario_Item ADD CONSTRAINT FK_INVENTARIO_ITEM_INVENTARIO FOREIGN KEY(idInventario) REFERENCES Inventario(idInventario);
+ALTER TABLE Inventario_Item ADD CONSTRAINT FK_INVENTARIO_ITEM_ITEM FOREIGN KEY(idItem) REFERENCES Item(idItem);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS ImagemArmazem (
+    idImagemArmazem INT NOT NULL,
+    caminhoImagem VARCHAR(260) NOT NULL
+);
+-- PK
+ALTER TABLE ImagemArmazem ADD CONSTRAINT PK_IMAGEMARMAZEM PRIMARY KEY(idImagemArmazem);
+ALTER TABLE ImagemArmazem CHANGE COLUMN idImagemArmazem idImagemArmazem INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Armazem (
+    idArmazem INT NOT NULL,
+    idImagemArmazem INT NOT NULL,
+    idInventario INT NOT NULL
+);
+-- PK
+ALTER TABLE Armazem ADD CONSTRAINT PK_ARMAZEM PRIMARY KEY(idArmazem);
+ALTER TABLE Armazem CHANGE COLUMN idArmazem idArmazem INT NOT NULL AUTO_INCREMENT;
+-- FK
+ALTER TABLE Armazem ADD CONSTRAINT FK_ARMAZEM_IMAGEMARMAZEM FOREIGN KEY(idImagemArmazem) REFERENCES ImagemArmazem(idImagemArmazem);
+ALTER TABLE Armazem ADD CONSTRAINT FK_ARMAZEM_INVENTARIO FOREIGN KEY(idInventario) REFERENCES Inventario(idInventario);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Anuncio (
+    idAnuncio INT NOT NULL,
+    idArmazem INT NOT NULL,
+    idItem INT NOT NULL
+);
+-- PK
+ALTER TABLE Anuncio ADD CONSTRAINT PK_ANUNCIO PRIMARY KEY(idAnuncio, idArmazem);
+ALTER TABLE Anuncio CHANGE COLUMN idAnuncio idAnuncio INT NOT NULL AUTO_INCREMENT;
+-- FK
+ALTER TABLE Anuncio ADD CONSTRAINT FK_ANUNCIO_ARMAZEM FOREIGN KEY(idArmazem) REFERENCES Armazem(idArmazem);
+ALTER TABLE Anuncio ADD CONSTRAINT FK_ANUNCIO_ITEM FOREIGN KEY(idItem) REFERENCES Item(idItem);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS ImagemUsuario (
+    idImagemUsuario INT NOT NULL,
+    caminhoImagem VARCHAR(260) NOT NULL
+);
+-- PK
+ALTER TABLE ImagemUsuario ADD CONSTRAINT PK_IMAGEMUSUARIO PRIMARY KEY(idImagemUsuario);
+ALTER TABLE ImagemUsuario CHANGE COLUMN idImagemUsuario idImagemUsuario INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS TipoUsuario (
+    idTipoUsuario INT NOT NULL
+);
+-- PK
+ALTER TABLE TipoUsuario ADD CONSTRAINT PK_TIPOUSUARIO PRIMARY KEY(idTipoUsuario);
+ALTER TABLE TipoUsuario CHANGE COLUMN idTipoUsuario idTipoUsuario INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Usuario (
+    idUsuario INT NOT NULL,
+    idImagemUsuario INT NOT NULL,
+    idTipoUsuario INT NOT NULL
+);
+-- PK
+ALTER TABLE Usuario ADD CONSTRAINT PK_USUARIO PRIMARY KEY(idUsuario);
+ALTER TABLE Usuario CHANGE COLUMN idUsuario idUsuario INT NOT NULL AUTO_INCREMENT;
+-- FK
+ALTER TABLE Usuario ADD CONSTRAINT FK_USUARIO_IMAGEMUSUARIO FOREIGN KEY(idImagemUsuario) REFERENCES ImagemUsuario(idImagemUsuario);
+ALTER TABLE Usuario ADD CONSTRAINT FK_USUARIO_TIPOUSUARIO FOREIGN KEY(idTipoUsuario) REFERENCES TipoUsuario(idTipoUsuario);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS ImagemPersonagem (
+    idImagemPersonagem INT NOT NULL,
+    caminhoImagem VARCHAR(260) NOT NULL
+);
+-- PK
+ALTER TABLE ImagemPersonagem ADD CONSTRAINT PK_IMAGEMPERSONAGEM PRIMARY KEY(idImagemPersonagem);
+ALTER TABLE ImagemPersonagem CHANGE COLUMN idImagemPersonagem idImagemPersonagem INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS TipoPersonagem (
+    idTipoPersonagem INT NOT NULL
+);
+-- PK
+ALTER TABLE TipoPersonagem ADD CONSTRAINT PK_TIPOPERSONAGEM PRIMARY KEY(idTipoPersonagem);
+ALTER TABLE TipoPersonagem CHANGE COLUMN idTipoPersonagem idTipoPersonagem INT NOT NULL AUTO_INCREMENT;
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Personagem (
+    idPersonagem INT NOT NULL,
+    idUsuario INT NOT NULL,
+    idImagemPersonagem INT NOT NULL,
+    idTipoPersonagem INT NOT NULL
+);
+-- PK
+ALTER TABLE Personagem ADD CONSTRAINT PK_PERSONAGEM PRIMARY KEY(idPersonagem, idUsuario);
+ALTER TABLE Personagem CHANGE COLUMN idPersonagem idPersonagem INT NOT NULL AUTO_INCREMENT;
+-- FK
+ALTER TABLE Personagem ADD CONSTRAINT FK_PERSONAGEM_USUARIO FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario);
+ALTER TABLE Personagem ADD CONSTRAINT FK_PERSONAGEM_IMAGEMPERSONAGEM FOREIGN KEY(idImagemPersonagem) REFERENCES ImagemPersonagem(idImagemPersonagem);
+ALTER TABLE Personagem ADD CONSTRAINT FK_PERSONAGEM_TIPOPERSONAGEM FOREIGN KEY(idTipoPersonagem) REFERENCES TipoPersonagem(idTipoPersonagem);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Troca (
+    idPersonagem1 INT NOT NULL,
+    idUsuario1 INT NOT NULL,
+    idPersonagem2 INT NOT NULL,
+    idUsuario2 INT NOT NULL,
+    idItem INT NOT NULL
+);
+-- PK
+ALTER TABLE Troca ADD CONSTRAINT PK_TROCA PRIMARY KEY(idPersonagem1, idUsuario1, idPersonagem2, idUsuario2);
+-- FK
+ALTER TABLE Troca ADD CONSTRAINT FK_TROCA_PERSONAGEM1 FOREIGN KEY(idPersonagem1, idUsuario1) REFERENCES Personagem(idPersonagem, idUsuario);	
+ALTER TABLE Troca ADD CONSTRAINT FK_TROCA_PERSONAGEM2 FOREIGN KEY(idPersonagem2, idUsuario2) REFERENCES Personagem(idPersonagem, idUsuario);	
+ALTER TABLE Troca ADD CONSTRAINT FK_TROCA_item FOREIGN KEY(idItem) REFERENCES Item(idItem);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Personagem_Anuncio (
+    idPersonagem INT NOT NULL,
+    idUsuario INT NOT NULL,
+    idAnuncio INT NOT NULL,
+    idArmazem INT NOT NULL
+);
+-- PK
+ALTER TABLE Personagem_Anuncio ADD CONSTRAINT PK_PERSONAGEM_ANUNCIO PRIMARY KEY(idPersonagem, idUsuario, idAnuncio, idArmazem);
+-- FK
+ALTER TABLE Personagem_Anuncio ADD CONSTRAINT FK_PERSONAGEM_ANUNCIO_PERSONAGEM FOREIGN KEY(idPersonagem, idUsuario) REFERENCES Personagem(idPersonagem, idUsuario);
+ALTER TABLE Personagem_Anuncio ADD CONSTRAINT FK_PERSONAGEM_ANUNCIO_ANUNCIO FOREIGN KEY(idAnuncio, idArmazem) REFERENCES Anuncio(idAnuncio, idArmazem);
+-- ----------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS CompraVenda (
+    idPersonagem INT NOT NULL,
+    idUsuario INT NOT NULL,
+    idArmazem INT NOT NULL,
+    idItem INT NOT NULL
+);
+-- PK
+ALTER TABLE CompraVenda ADD CONSTRAINT PK_COMPRAVENDA PRIMARY KEY(idPersonagem, idUsuario, idArmazem);
+-- FK
+ALTER TABLE CompraVenda ADD CONSTRAINT FK_COMPRAVENDA_PERSONAGEM FOREIGN KEY(idPersonagem, idUsuario) REFERENCES Personagem(idPersonagem, idUsuario);
+ALTER TABLE CompraVenda ADD CONSTRAINT FK_COMPRAVENDA_ARMAZEM FOREIGN KEY(idArmazem) REFERENCES Armazem(idArmazem);           
+ALTER TABLE CompraVenda ADD CONSTRAINT FK_COMPRAVENDA_ITEM FOREIGN KEY(idItem) REFERENCES Item(idItem);
