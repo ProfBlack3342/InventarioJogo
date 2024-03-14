@@ -30,6 +30,14 @@ public class GUILogin extends javax.swing.JDialog {
         jpfSenha.setText(null);
     }
     
+    private void cadastro() {
+        GUICadastro gc =  new GUICadastro();
+        gc.setVisible(true);
+        
+        setVisible(false);
+        dispose();
+    }
+    
     private void logar()
     {
         try
@@ -83,6 +91,7 @@ public class GUILogin extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jbtnLogin = new javax.swing.JButton();
         jbtnSair = new javax.swing.JButton();
+        jbtnCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
@@ -153,16 +162,30 @@ public class GUILogin extends javax.swing.JDialog {
             }
         });
 
+        jbtnCadastro.setText("Novo Cadastro");
+        jbtnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCadastroActionPerformed(evt);
+            }
+        });
+        jbtnCadastro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnCadastroKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtnCadastro)
+                .addGap(18, 18, 18)
                 .addComponent(jbtnSair)
-                .addGap(14, 14, 14))
+                .addGap(28, 28, 28))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +193,8 @@ public class GUILogin extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnLogin)
-                    .addComponent(jbtnSair))
+                    .addComponent(jbtnSair)
+                    .addComponent(jbtnCadastro))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -180,12 +204,14 @@ public class GUILogin extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,6 +243,15 @@ public class GUILogin extends javax.swing.JDialog {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
             sair();
     }//GEN-LAST:event_jbtnSairKeyPressed
+
+    private void jbtnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCadastroActionPerformed
+        cadastro();
+    }//GEN-LAST:event_jbtnCadastroActionPerformed
+
+    private void jbtnCadastroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnCadastroKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            cadastro();
+    }//GEN-LAST:event_jbtnCadastroKeyPressed
 
     /**
      * @param args the command line arguments
@@ -266,6 +301,7 @@ public class GUILogin extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jbtnCadastro;
     private javax.swing.JButton jbtnLogin;
     private javax.swing.JButton jbtnSair;
     private javax.swing.JPasswordField jpfSenha;
