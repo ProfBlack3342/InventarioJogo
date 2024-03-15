@@ -4,9 +4,9 @@ package servicos;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.PersonagemDAOFactory;
+import dao.DAOFactory;
 import dao.PersonagemDAO;
-import modelo.Personagem;
+import modelo.PersonagemVO;
 
 /**
  *
@@ -14,23 +14,23 @@ import modelo.Personagem;
  */
 public class PersonagemServicos {
     
-    public void cadastrarPersonagem(Personagem personagem) throws SQLException {
-        PersonagemDAO pDAO = PersonagemDAOFactory.getPersonagemDAO();
+    public void cadastrarPersonagem(PersonagemVO personagem) throws SQLException{
+        PersonagemDAO pDAO = DAOFactory.getPersonagemDAO();
         pDAO.cadastrarPersonagem(personagem);
     }
     
-    public ArrayList<Personagem> buscarPersonagem() throws SQLException{
-        PersonagemDAO pDAO = PersonagemDAOFactory.getPersonagemDAO();
+    public ArrayList<PersonagemVO> buscarPersonagem() throws SQLException{
+        PersonagemDAO pDAO = DAOFactory.getPersonagemDAO();
         return pDAO.buscarPersonagem();
     }
     
-    public ArrayList<Personagem> filtrarPersonagem(String query) throws SQLException{
-        PersonagemDAO pDAO = PersonagemDAOFactory.getPersonagemDAO();
+    public ArrayList<PersonagemVO> filtrarPersonagem(String query) throws SQLException{
+        PersonagemDAO pDAO = DAOFactory.getPersonagemDAO();
         return pDAO.filtrarPersonagem(query);
     }
     
     public void deletarPersonagem(int idPersonagem) throws SQLException {
-        PersonagemDAO pDAO = PersonagemDAOFactory.getPersonagemDAO();
+        PersonagemDAO pDAO = DAOFactory.getPersonagemDAO();
         pDAO.deletarPersonagem(idPersonagem);
     }
 }

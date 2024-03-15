@@ -6,16 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import modelo.Usuario;
+import modelo.UsuarioVO;
 import persistencia.ConexaoBanco;
 
 /**
  *
  * @author dudup
  */
-public class LoginDAO {
+public class UsuarioDAO {
     
-    public boolean autenticarLogin(Usuario usuario) throws SQLException {
+    public boolean buscarUsuario(UsuarioVO usuario) throws SQLException {
         
         String sql = "SELECT * FROM usuario WHERE login=? AND senha=?";
         

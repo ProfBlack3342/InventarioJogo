@@ -5,6 +5,6 @@ package modelo;
  *
  * @author dudup
  */
-public class Imagem {
+public class ImagemVO {
     
 }

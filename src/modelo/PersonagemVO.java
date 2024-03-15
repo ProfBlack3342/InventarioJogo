@@ -5,7 +5,7 @@ package modelo;
  *
  * @author dudup
  */
-public class Personagem {
+public class PersonagemVO {
     
     private int idPersonagem, idUsuario, idImagem, idTipo;
     private String nome;

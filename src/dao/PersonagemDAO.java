@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import modelo.Personagem;
+import modelo.PersonagemVO;
 import persistencia.ConexaoBanco;
 
 /**
@@ -16,7 +16,7 @@ import persistencia.ConexaoBanco;
  */
 public class PersonagemDAO {
     
-    public void cadastrarPersonagem(Personagem personagem) throws SQLException {
+    public void cadastrarPersonagem(PersonagemVO personagem) throws SQLException {
         
         String sql = "INSERT INTO personagem VALUES (null, ?, ?, ?, ? )";
         
@@ -35,16 +35,16 @@ public class PersonagemDAO {
         }
     }
     
-    public ArrayList<Personagem> buscarPersonagem() throws SQLException {
+    public ArrayList<PersonagemVO> buscarPersonagem() throws SQLException {
         
-        ArrayList<Personagem> pro = new ArrayList<>();
+        ArrayList<PersonagemVO> pro = new ArrayList<>();
         String sql = "SELECT * FROM personagem";
         
         try(Connection con = new ConexaoBanco().getConexao(); PreparedStatement pstm = con.prepareStatement(sql); ResultSet rs = pstm.executeQuery())
         {
             while( rs.next())
             {
-                Personagem pVO = new Personagem();
+                PersonagemVO pVO = new PersonagemVO();
                 pVO.setIdPersonagem(rs.getInt("idPersonagem"));
                 pVO.setIdUsuario(rs.getInt("idUsuario"));
                 pVO.setIdImagem(rs.getInt("idImagemPersonagem"));
@@ -61,16 +61,16 @@ public class PersonagemDAO {
         }
     }
     
-    public ArrayList<Personagem> filtrarPersonagem(String query) throws SQLException {
+    public ArrayList<PersonagemVO> filtrarPersonagem(String query) throws SQLException {
         
-        ArrayList<Personagem> pro = new ArrayList<>();
+        ArrayList<PersonagemVO> pro = new ArrayList<>();
         String sql = "SELECT * FROM personagem " + query;
         
         try( Connection con = new ConexaoBanco().getConexao(); PreparedStatement pstm = con.prepareStatement(sql); ResultSet rs = pstm.executeQuery() )
         {
             while( rs.next())
             {
-                Personagem pVO = new Personagem();
+                PersonagemVO pVO = new PersonagemVO();
 
                 pVO.setIdPersonagem(rs.getInt("idPersonagem"));
                 pVO.setIdUsuario(rs.getInt("idUsuario"));

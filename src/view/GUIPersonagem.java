@@ -1,7 +1,7 @@
 
 package view;
 
-import modelo.Usuario;
+import modelo.UsuarioVO;
 
 /**
  *
@@ -9,7 +9,7 @@ import modelo.Usuario;
  */
 public class GUIPersonagem extends javax.swing.JFrame {
 
-    private final Usuario usuarioLogado;
+    private final UsuarioVO usuarioLogado;
     
     /**
      * Creates new form GUIPrincipal
@@ -22,7 +22,7 @@ public class GUIPersonagem extends javax.swing.JFrame {
 
     }
     
-    public GUIPersonagem(Usuario usuarioLogado) {
+    public GUIPersonagem(UsuarioVO usuarioLogado) {
         initComponents();
         
         this.usuarioLogado = usuarioLogado;

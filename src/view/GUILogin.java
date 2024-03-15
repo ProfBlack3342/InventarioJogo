@@ -5,8 +5,8 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-import dao.LoginDAOFactory;
-import modelo.Usuario;
+import dao.DAOFactory;
+import modelo.UsuarioVO;
 
 /**
  *
@@ -43,11 +43,11 @@ public class GUILogin extends javax.swing.JDialog {
         try
         {
             
-            Usuario usuario = new Usuario();
+            UsuarioVO usuario = new UsuarioVO();
             usuario.setLogin(jtfUsuario.getText() );
             usuario.setSenha(new String(jpfSenha.getPassword()));
             
-            boolean senhaCorreta = LoginDAOFactory.getLoginDAO().autenticarLogin(usuario);
+            boolean senhaCorreta = DAOFactory.getUsuarioDAO().buscarUsuario(usuario);
             
             if(senhaCorreta)
             {
